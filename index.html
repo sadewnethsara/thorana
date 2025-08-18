@@ -7,23 +7,91 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Loader Overlay -->
+  <div id="loader-overlay" class="hidden">
+    <div class="spinner"></div>
+    <p id="progress-text">0% loaded</p>
+  </div>
+
   <!-- Canvas for Three.js -->
   <canvas id="c"></canvas>
 
+  <!-- Top-left controls -->
   <div id="controls">
-  <button id="zoomIn">🔍 +</button>
-  <button id="zoomOut">🔍 −</button>
-  <button id="rotateLeft">⟲</button>
-  <button id="rotateRight">⟳</button>
-</div>
+    <button id="viewPersp" title="Perspective View">3D</button>
+    <button id="zoomIn" title="Zoom In">🔍 +</button>
+    <button id="zoomOut" title="Zoom Out">🔍 −</button>
+    <button id="rotateLeft" title="Rotate Left">⟲</button>
+    <button id="rotateRight" title="Rotate Right">⟳</button>
+  </div>
+  
+  <!-- Bottom-right axis controls -->
+  <div id="axis-controls">
+    <button id="viewX" title="Toggle X Axis View">X</button>
+    <button id="viewY" title="Toggle Y Axis View">Y</button>
+    <button id="viewZ" title="Toggle Z Axis View">Z</button>
+  </div>
 
+  <!-- Menu Toggle Button -->
+  <button id="menu-toggle" title="Settings">⚙️</button>
+
+  <!-- Side Panel for Settings -->
+  <div id="side-panel">
+    <button id="close-panel" title="Close">&times;</button>
+    <h2>Settings</h2>
+    
+    <div class="settings-section">
+      <h3>Lighting</h3>
+      <div class="setting-item">
+        <label for="ambientIntensity">Ambient Light</label>
+        <input type="range" id="ambientIntensity" min="0" max="3" step="0.1" value="1.0">
+      </div>
+      <div class="setting-item">
+        <label for="directionalIntensity">Directional Light</label>
+        <input type="range" id="directionalIntensity" min="0" max="5" step="0.1" value="2.5">
+      </div>
+      <div class="setting-item">
+        <label for="lightColor">Light Color</label>
+        <input type="color" id="lightColor" value="#ffffff">
+      </div>
+      <div class="setting-item">
+        <label for="lightAngle">Light Angle</label>
+        <input type="range" id="lightAngle" min="0" max="360" step="1" value="45">
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>Background</h3>
+      <h4>Solid Color</h4>
+      <div class="options-grid">
+        <div class="color-option" data-color="#000428" style="background: #000428;"></div>
+        <div class="color-option" data-color="#333333" style="background: #333333;"></div>
+        <div class="color-option" data-color="#708090" style="background: #708090;"></div>
+        <div class="color-option" data-color="#4682B4" style="background: #4682B4;"></div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h4>Image</h4>
+      <div class="options-grid image-options">
+        <button class="image-option" data-mapping="equirectangular" data-image="https://cdn.pixabay.com/photo/2022/06/25/13/33/landscape-7283516_1280.jpg">Landscape</button>
+        <button class="image-option" data-mapping="equirectangular" data-image="https://cdn.pixabay.com/photo/2020/02/06/16/03/sky-4824546_1280.jpg">Starry Sky</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom navigation bar for model switching -->
+  <nav id="model-switcher">
+    <button class="active" data-model="scene.glb">Model 1</button>
+    <button data-model="another_model.glb">Model 2</button>
+    <button data-model="third_model.glb">Model 3</button>
+  </nav>
 
   <!-- Footer text -->
   <div id="copyright">
     © Sadew Nethsara 2025
   </div>
 
-  <!-- Import Three.js modules -->
   <script type="importmap">
     {
       "imports": {
@@ -32,7 +100,6 @@
       }
     }
   </script>
-
   <script type="module" src="main.js"></script>
 </body>
 </html>

@@ -6,8 +6,6 @@ body, html {
   height: 100%;
   width: 100%;
   font-family: sans-serif;
-
-  /* Gradient background */
   background: linear-gradient(to top, #004e92, #000428);
 }
 
@@ -18,7 +16,176 @@ canvas {
   height: 100%;
 }
 
-/* Copyright overlay */
+/* --- UI CONTROLS --- */
+
+#controls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  flex-wrap: wrap; /* Allow wrapping */
+  gap: 10px;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.3);
+  padding: 5px;
+  border-radius: 12px;
+}
+
+#controls button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: transform 0.2s;
+  font-weight: bold;
+}
+
+#controls button:hover {
+  transform: scale(1.1);
+}
+
+#controls #viewPersp {
+  background-color: #a7c7e7;
+}
+
+#axis-controls {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
+}
+
+#axis-controls button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#axis-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Model Switcher */
+#model-switcher {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 25px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+#model-switcher button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#model-switcher button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+#model-switcher button.active {
+  background-color: #ffffff;
+  color: #004e92;
+  border-color: #ffffff;
+}
+
+/* --- SIDE PANEL & MENU --- */
+
+#menu-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  font-size: 24px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+#menu-toggle:hover {
+  transform: scale(1.1) rotate(45deg);
+}
+
+#side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+  z-index: 99;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #333;
+}
+
+#side-panel.open {
+  transform: translateX(0);
+}
+
+#close-panel {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #555;
+}
+
+#side-panel h2 { margin-top: 20px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+.settings-section h3 { margin-top: 25px; margin-bottom: 15px; color: #004e92; }
+.settings-section h4 { margin: 20px 0 10px; color: #555; font-weight: normal; font-size: 1em; }
+.setting-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.setting-item label { flex-basis: 50%; font-size: 0.9em; }
+.setting-item input[type="range"] { flex-basis: 50%; cursor: pointer; }
+.setting-item input[type="color"] { width: 40px; height: 40px; border: none; border-radius: 8px; padding: 0; cursor: pointer; background-color: transparent; }
+.options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; }
+.color-option { width: 50px; height: 50px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.2s; }
+.color-option:hover { transform: scale(1.1); }
+.image-options { grid-template-columns: 1fr 1fr; }
+.image-options button { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer; font-size: 14px; }
+.image-options button:hover { background-color: #e0e0e0; }
+
+/* --- OVERLAYS --- */
+
 #copyright {
   position: absolute;
   bottom: 12px;
@@ -30,27 +197,45 @@ canvas {
   pointer-events: none;
 }
 
-
-#controls {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+#loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-#controls button {
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.85);
-  cursor: pointer;
-  transition: transform 0.2s;
+#loader-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
-#controls button:hover {
-  transform: scale(1.1);
+.spinner {
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid #ffffff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+#progress-text {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-family: monospace;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
